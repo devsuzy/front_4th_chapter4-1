@@ -6,9 +6,18 @@
 - GitHub Actions을 통해 자동화된 배포 파이프라인을 구축합니다.
 - Amazon CloudFront를 활용하여 사용자에게 빠르고 안정적인 웹 서비스를 제공하는 CDN 서비스를 구축합니다.
 
-## 2. 배포 프로세스
+## 2. 배포 파이프라인 프로세스
 
 ![배포 프로세스 drawio](https://github.com/user-attachments/assets/98553018-0cc3-4175-806c-1d487dd94cde)
+
+1. main 브랜치에 코드가 push되면 워크플로우가 실행됩니다.
+2. github의 Ubuntu 최신 버전 환경에서 진행됩니다.
+3. 저장소의 최신 코드를 가져옵니다.
+4. 의존성을 설치합니다.
+5. Next.js 프로젝트를 정적 파일로 빌드합니다.
+6. AWS에 접근하기 위해 자격증명을 설정합니다. (GitHub Secrets에 저장된 값을 사용하여 보안성을 유지합니다.)
+7. 빌드된 파일들을 S3 버킷으로 업로드합니다.
+8. CloudFront에 캐시된 파일을 무효화하여 변경된 파일이 즉시 반영되도록 합니다.
 
 ## 3. 주요 링크
 - S3 버킷 웹사이트 엔드포인트: http://suzysfirstawsbucket.s3-website-ap-southeast-2.amazonaws.com
@@ -48,6 +57,4 @@ $ aws cloudfront create-invalidation \
 - secret은 레포지토리 또는 개인 계정용 Github Codespaces 설정에서 만든 암호화된 환경변수 입니다.
 - Github Actions의 워크플로우 안에 api키, 비밀번호 등 보안이 중요한 환경변수들은 secrets 기능을 사용하여 관리합니다.
 
-## 5. GitHub Actions 워크플로우
-
-## 6. CDN 성능 최적화 분석
+## 5. CDN 성능 최적화 분석
